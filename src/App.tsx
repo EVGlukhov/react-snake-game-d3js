@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { Snake, SnakeProvider } from "./snake"
 
 function App() {
   return (
-    <>
-      <div>Hello</div>
-    </>
+    <SnakeProvider>
+      <Snake />
+    </SnakeProvider>
   )
 }
 

@@ -1,0 +1,71 @@
+.container {
+  background-color: #ffffdd;
+  min-height: 100vh;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.title {
+  text-align: center;
+  background-color: #a2c579;
+  color: #222;
+  font-size: 2.5rem;
+  padding-block: 1.5rem;
+  font-family: Agbalumo, "Red Hat Display", sans-serif;
+}
+
+.highScore {
+  background-color: #d2de32;
+  color: black;
+  font-variant: small-caps;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 900;
+  width: fit-content;
+  margin-inline: auto;
+  margin-top: 1rem;
+  padding: 0.2rem 1rem;
+  border-radius: 1rem;
+}
+
+.startHint {
+  text-align: center;
+  color: black;
+  font-weight: 900;
+  font-size: 1.5rem;
+  animation: teeter 2s linear infinite;
+  margin-top: 2rem;
+}
+
+.score {
+  text-align: center;
+  font-size: 2em;
+  font-weight: 900;
+  margin-block: 1rem;
+  width: fit-content;
+  margin-inline: auto;
+}
+
+.score > span:first-child {
+  background-color: #61a3ba;
+  color: white;
+  padding-block: 0.5rem;
+  padding-inline: 1rem 0.3rem;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+
+.score > span:last-child {
+  background-color: #d2de32;
+  color: #222;
+  padding-block: 0.5rem;
+  padding-inline: 0.8rem 1rem;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+
+.pouseHint {
+  text-align: center;
+  font-style: italic;
+  color: #333;
+}
