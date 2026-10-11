@@ -21,7 +21,7 @@ export type SnakeContext = SnakeState & {
 export const initialState: SnakeState = {
   score: 0,
   isStarting: true,
-  isPlaying: false,
+  isPlaying: true,
   isGameOver: false,
   isPause: false
 }

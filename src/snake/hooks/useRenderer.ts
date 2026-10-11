@@ -18,6 +18,8 @@ export function useRenderer() {
       SNAKE_SETTINGS.cellSize * SNAKE_SETTINGS.rows +
       (SNAKE_SETTINGS.rows - 1) * SNAKE_SETTINGS.cellMargin +
       2 * SNAKE_SETTINGS.gamePadding;
+
+    debugger
   }, [])
 
   return { ref };

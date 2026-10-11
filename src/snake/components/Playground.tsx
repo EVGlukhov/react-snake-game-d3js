@@ -7,6 +7,8 @@ export function Playground() {
 
 
   return (
-    <canvas ref={ref}></canvas>
+    <div>
+      <canvas ref={ref} className="bg-teal-700"></canvas> 
+    </div>
   );
 }

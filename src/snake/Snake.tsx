@@ -9,8 +9,7 @@ import {
   useKeydown,
   useSnakeState
 } from '@/snake/hooks'
-
-import styles from './styles.module.css';
+import { GameHeader } from './components/GameHeader';
 
 export function Snake() {
   const {
@@ -26,16 +25,11 @@ export function Snake() {
   })
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Snake</h1>
-      <p className={styles.highScore}>Press Enter to start!</p>
-      {isPlaying && 
-        <>
-          <p className={styles.score}><span>Score:</span> <span>{score}</span></p>
-          <p className={styles.pouseHint}>Use arrow keys to control the snake</p>
-        </>
-      }
-      <Playground />
+    <div className="min-h-screen bg-sky-500 font-mono p-4">
+      <div className="flex flex-col gap-3 items-center">
+        <GameHeader />
+        <Playground />
+      </div>    
       {isGameOver && <GameOverDialog />}
       {isPause && <PouseDialog />}
     </div>
