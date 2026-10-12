@@ -1,5 +1,5 @@
 import { range, scaleBand } from "d3";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { SNAKE_SETTINGS } from "../settings";
 import type { Position } from "./useEngine";
 
@@ -65,13 +65,11 @@ export function useRenderer() {
     }
   }, [])
 
-  const drawFrame = (snake: Position[], food: Position | null) => {
+  const drawFrame = useCallback((snake: Position[], food: Position | null) => {
     const canvas = ref.current;
     const context = canvas?.getContext('2d');
 
     if (!canvas || !context || !themeRef.current) return;
-
-    
 
     const {
       backgroundColor,
@@ -97,7 +95,7 @@ export function useRenderer() {
       drawCell(food, foodColor);
 
     snake.forEach((segment) => drawCell(segment, snakeColor))
-  };
+  }, [ref.current, themeRef.current]);
 
   return { ref, drawFrame };
 }
