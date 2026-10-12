@@ -1,19 +1,12 @@
 import { useCallback, useRef, useState } from "react";
 import { SNAKE_SETTINGS } from "../settings";
-import { Status } from "../constants";
-
-export type Position = {
-  x: number;
-  y: number;
-};
-
-export const Direction = {
-  Up: "up",
-  Right: "right",
-  Down: "down",
-  Left: "left",
-} as const;
-export type Direction = (typeof Direction)[keyof typeof Direction];
+import {
+  Direction,
+  movement,
+  opposite,
+  Status,
+  type Position,
+} from "../constants";
 
 export type GameState = {
   snake: Position[];
@@ -23,19 +16,37 @@ export type GameState = {
   status: Status;
 };
 
-export const movement: Record<Direction, Position> = {
-  [Direction.Up]: { x: 0, y: -1 },
-  [Direction.Right]: { x: 1, y: 0 },
-  [Direction.Down]: { x: 0, y: 1 },
-  [Direction.Left]: { x: -1, y: 0 },
-};
+export function useEngine(initialGame: () => GameState = createGame) {
+  const [game, setGame] = useState(initialGame);
+  const gameRef = useRef(game);
 
-export const opposite: Record<Direction, Direction> = {
-  [Direction.Up]: Direction.Down,
-  [Direction.Right]: Direction.Left,
-  [Direction.Down]: Direction.Up,
-  [Direction.Left]: Direction.Right,
-};
+  const advanceSnake = useCallback(() => {
+    const currentGame = gameRef.current;
+    if (!currentGame) return;
+
+    const nextGame = advanceGame(gameRef.current);
+    gameRef.current = nextGame;
+    setGame(nextGame);
+  }, []);
+
+  const setDirection = useCallback((direction: Direction) => {
+    const currentGame = gameRef.current;
+    if (!currentGame) return;
+
+    if (
+      currentGame.status !== Status.Playing ||
+      direction === opposite[currentGame.direction]
+    ) {
+      return;
+    }
+
+    const nextGame = { ...currentGame, direction };
+    gameRef.current = nextGame;
+    setGame(nextGame);
+  }, []);
+
+  return { game, advanceSnake, setDirection };
+}
 
 function createFood(snake: Position[]): Position | null {
   const emptyCells: Position[] = [];
@@ -116,36 +127,4 @@ function advanceGame(game: GameState): GameState {
     score: game.score + (ateFood ? 1 : 0),
     status: ateFood && food === null ? Status.Won : Status.Playing,
   };
-}
-
-export function useEngine() {
-  const [game, setGame] = useState(createGame());
-  const gameRef = useRef(game);
-
-  const advanceSnake = useCallback(() => {
-    const currentGame = gameRef.current;
-    if (!currentGame) return;
-
-    const nextGame = advanceGame(gameRef.current);
-    gameRef.current = nextGame;
-    setGame(nextGame);
-  }, []);
-
-  const setDirection = useCallback((direction: Direction) => {
-    const currentGame = gameRef.current;
-    if (!currentGame) return;
-
-    if (
-      currentGame.status !== Status.Playing ||
-      direction === opposite[currentGame.direction]
-    ) {
-      return;
-    }
-
-    const nextGame = { ...currentGame, direction };
-    gameRef.current = nextGame;
-    setGame(nextGame);
-  }, []);
-
-  return { game, advanceSnake, setDirection };
 }

@@ -1,7 +1,7 @@
 import { range, scaleBand } from "d3";
 import { useCallback, useEffect, useRef } from "react";
 import { SNAKE_SETTINGS } from "../settings";
-import type { Position } from "./useEngine";
+import type { Position } from "../constants";
 
 type Theme = {
   backgroundColor: string;
