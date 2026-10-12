@@ -1,10 +1,8 @@
-import { Snake, SnakeProvider } from "./snake"
+import { Snake } from "./snake"
 
 function App() {
   return (
-    <SnakeProvider>
-      <Snake />
-    </SnakeProvider>
+    <Snake />
   )
 }
 

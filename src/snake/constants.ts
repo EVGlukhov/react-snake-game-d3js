@@ -1,6 +1,7 @@
-export const Direction = {
-  Up: 'up',
-  Right: 'right',
-  Down: 'down',
-  Left: 'left'
+export const Status = {
+  Playing: 'playing',
+  GameOver: 'gameOver',
+  Won: 'won'
 } as const;
+
+export type Status = typeof Status[keyof typeof Status];

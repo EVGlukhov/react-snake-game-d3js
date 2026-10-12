@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+:root {
+  --background-color: #52525c;
+  --food-color: #5ea500;
+  --snake-color: #1d293d;
+}
