@@ -1,3 +1,4 @@
+import { range, scaleBand } from "d3";
 import { useEffect, useRef } from "react";
 import { SNAKE_SETTINGS } from "../settings";
 import type { Position } from "./useEngine";
@@ -7,6 +8,31 @@ type Theme = {
   foodColor: string;
   snakeColor: string;
 }
+
+const {
+  rows,
+  columns,
+  cellSize,
+  cellMargin,
+  gamePadding
+} = SNAKE_SETTINGS;
+const cellGap = cellMargin / (cellSize + cellMargin)
+
+const xScale = scaleBand<number>()
+  .domain(range(columns))
+  .range([
+    gamePadding,
+    gamePadding + columns * cellSize + (columns - 1) * cellMargin
+  ])
+  .paddingInner(cellGap);
+
+const yScale = scaleBand<number>()
+  .domain(range(rows))
+  .range([
+    gamePadding,
+    gamePadding + rows * cellSize + (rows - 1) * cellMargin
+  ])
+  .paddingInner(cellGap)
 
 export function useRenderer() {
   const ref = useRef<HTMLCanvasElement | null>(null);
@@ -45,11 +71,7 @@ export function useRenderer() {
 
     if (!canvas || !context || !themeRef.current) return;
 
-    const {
-      cellSize,
-      cellMargin,
-      gamePadding
-    } = SNAKE_SETTINGS;
+    
 
     const {
       backgroundColor,
@@ -61,11 +83,14 @@ export function useRenderer() {
     context.fillRect(0, 0, canvas.width, canvas.height);
 
     const drawCell = (position: Position, color: string) => {
-      const x = gamePadding + position.x * (cellSize + cellMargin);
-      const y = gamePadding + position.y * (cellSize + cellMargin);
+      const x = xScale(position.x);
+      const y = yScale(position.y);
+
+      if (x === undefined || 
+          y === undefined) return;
 
       context.fillStyle = color;
-      context.fillRect(x, y, cellSize, cellSize);
+      context.fillRect(x, y, xScale.bandwidth(), yScale.bandwidth());
     }
 
     if (food)
