@@ -29,6 +29,12 @@ export function useEngine(initialGame: () => GameState = createGame) {
     setGame(nextGame);
   }, []);
 
+  const restartGame = useCallback(() => {
+    const nextGame = createGame();
+    gameRef.current = nextGame;
+    setGame(nextGame);
+  }, []);
+
   const setDirection = useCallback((direction: Direction) => {
     const currentGame = gameRef.current;
     if (!currentGame) return;
@@ -45,11 +51,27 @@ export function useEngine(initialGame: () => GameState = createGame) {
     setGame(nextGame);
   }, []);
 
-  return { game, advanceSnake, setDirection };
+  return { game, advanceSnake, setDirection, restartGame };
 }
 
 function createFood(snake: Position[]): Position | null {
-  const emptyCells: Position[] = [];
+  const occupiedCells = new Set(
+    snake.map(({ x, y }) => y * SNAKE_SETTINGS.columns + x),
+  );
+
+  const emptyCells = Array.from(
+    { length: SNAKE_SETTINGS.rows * SNAKE_SETTINGS.columns },
+    (_, index) => index,
+  ).reduce<Position[]>((available, index) => {
+    if (!occupiedCells.has(index)) {
+      available.push({
+        x: index % SNAKE_SETTINGS.columns,
+        y: Math.floor(index / SNAKE_SETTINGS.columns),
+      });
+    }
+
+    return available;
+  }, []);
 
   for (let y = 0; y < SNAKE_SETTINGS.rows; y++) {
     for (let x = 0; x < SNAKE_SETTINGS.columns; x++) {
@@ -113,7 +135,7 @@ function advanceGame(game: GameState): GameState {
     nextHead.y >= SNAKE_SETTINGS.rows;
 
   if (hitSelf || hitWall) {
-    return { ...game, status: "gameOver" };
+    return { ...game, status: Status.GameOver };
   }
 
   const snake = [nextHead, ...nextBody];

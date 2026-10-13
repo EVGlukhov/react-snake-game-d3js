@@ -1,7 +1,8 @@
+import { Status } from "../constants";
 import { useGame } from "../GameContext";
 
 export function GameHeader() {
-  const { game } = useGame();
+  const { game, restartGame } = useGame();
 
   return (
     <div className="w-full flex flex-col items-center gap-2">
@@ -13,6 +14,14 @@ export function GameHeader() {
           Score: {game.score}
         </p>
       </div>
+      <button
+        type="button"
+        onClick={restartGame}
+        disabled={game.status === Status.Playing}
+        className="rounded-md bg-amber-500 px-4 py-2 font-medium text-gray-700 shadow-xl hover:bg-amber-400 disabled:bg-slate-500 disabled:text-mist-300"
+      >
+        Restart
+      </button>
     </div>
   );
 }
