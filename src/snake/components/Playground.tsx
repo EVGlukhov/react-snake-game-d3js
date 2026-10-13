@@ -1,12 +1,13 @@
 import { useEffect, useRef } from "react";
-import { useEngine, useKeydown, useRenderer } from "../hooks";
+import { useKeydown, useRenderer } from "../hooks";
 import { SNAKE_SETTINGS } from "../settings";
 import { Status } from "../constants";
 import { Direction } from "../constants";
+import { useGame } from "../GameContext";
 
 export function Playground() {
   const { ref, drawFrame } = useRenderer();
-  const { game, advanceSnake, setDirection } = useEngine();
+  const { game, advanceSnake, setDirection } = useGame();
   const frameIdRef = useRef<number>(0);
 
   useEffect(() => {

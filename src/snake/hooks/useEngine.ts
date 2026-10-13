@@ -64,7 +64,7 @@ function createFood(snake: Position[]): Position | null {
   return emptyCells[Math.floor(Math.random() * emptyCells.length)];
 }
 
-function createGame(): GameState {
+export function createGame(): GameState {
   const x = Math.floor(SNAKE_SETTINGS.columns / 2);
   const y = Math.floor(SNAKE_SETTINGS.rows / 2);
 
