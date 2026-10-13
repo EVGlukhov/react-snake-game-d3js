@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react";
 import { useKeydown, useRenderer } from "../hooks";
 import { SNAKE_SETTINGS } from "../settings";
-import { Status } from "../constants";
-import { Direction } from "../constants";
+import { Status, Direction } from "../constants";
 import { useGame } from "../GameContext";
 
 export function Playground() {
   const { ref, drawFrame } = useRenderer();
-  const { game, advanceSnake, setDirection } = useGame();
+  const { game, advanceSnake, setDirection, pauseGame, restartGame } =
+    useGame();
   const frameIdRef = useRef<number>(0);
 
   useEffect(() => {
@@ -38,15 +38,13 @@ export function Playground() {
   }, [advanceSnake, game.status]);
 
   useKeydown({
+    Escape: () => pauseGame(),
+    Enter: () => restartGame(),
     ArrowUp: () => setDirection(Direction.Up),
     ArrowDown: () => setDirection(Direction.Down),
     ArrowLeft: () => setDirection(Direction.Left),
     ArrowRight: () => setDirection(Direction.Right),
   });
 
-  return (
-    <div>
-      <canvas ref={ref} className="bg-zinc-600"></canvas>
-    </div>
-  );
+  return <canvas ref={ref} className="bg-zinc-600"></canvas>;
 }

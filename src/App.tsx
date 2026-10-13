@@ -1,9 +1,11 @@
-import { Snake } from "./snake"
+import { Snake, GameProvider } from "./snake";
 
 function App() {
   return (
-    <Snake />
-  )
+    <GameProvider>
+      <Snake />
+    </GameProvider>
+  );
 }
 
-export default App
+export default App;

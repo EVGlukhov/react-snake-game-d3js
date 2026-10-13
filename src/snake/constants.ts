@@ -5,6 +5,7 @@ export type Position = {
 
 export const Status = {
   Playing: "playing",
+  Paused: "paused",
   GameOver: "gameOver",
   Won: "won",
 } as const;

@@ -35,6 +35,24 @@ export function useEngine(initialGame: () => GameState = createGame) {
     setGame(nextGame);
   }, []);
 
+  const pauseGame = useCallback(() => {
+    const currentGame = gameRef.current;
+    if (
+      currentGame.status !== Status.Playing &&
+      currentGame.status !== Status.Paused
+    ) {
+      return;
+    }
+
+    const nextGame = {
+      ...currentGame,
+      status:
+        currentGame.status === Status.Playing ? Status.Paused : Status.Playing,
+    };
+    gameRef.current = nextGame;
+    setGame(nextGame);
+  }, []);
+
   const setDirection = useCallback((direction: Direction) => {
     const currentGame = gameRef.current;
     if (!currentGame) return;
@@ -51,7 +69,7 @@ export function useEngine(initialGame: () => GameState = createGame) {
     setGame(nextGame);
   }, []);
 
-  return { game, advanceSnake, setDirection, restartGame };
+  return { game, advanceSnake, setDirection, restartGame, pauseGame };
 }
 
 function createFood(snake: Position[]): Position | null {

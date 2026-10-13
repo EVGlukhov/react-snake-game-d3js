@@ -1,15 +1,21 @@
 import { Playground, GameHeader } from "./components";
-import { GameProvider } from "./GameContext";
+import { GameOverDialog } from "./components/dialogs/GameOverDialog";
+import { PauseDialog } from "./components/dialogs/PauseDialog";
+import { WinDialog } from "./components/dialogs/WinDialog";
+import { Status } from "./constants";
+import { useGame } from "./GameContext";
 
 export function Snake() {
+  const { game } = useGame();
   return (
-    <GameProvider>
-      <div className="min-h-screen bg-sky-500 font-mono p-4">
-        <div className="flex flex-col gap-8 items-center">
-          <GameHeader />
-          <Playground />
-        </div>
+    <div className="min-h-screen bg-sky-500 font-mono p-4 relative">
+      <div className="flex flex-col gap-8 items-center">
+        <GameHeader />
+        <Playground />
       </div>
-    </GameProvider>
+      {game.status === Status.Paused && <PauseDialog />}
+      {game.status === Status.GameOver && <GameOverDialog />}
+      {game.status === Status.Won && <WinDialog />}
+    </div>
   );
 }
