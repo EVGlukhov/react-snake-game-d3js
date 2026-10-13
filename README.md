@@ -1,35 +1,78 @@
-# React + TypeScript + Vite
+# Snake
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A classic Snake game built with React, TypeScript, and HTML Canvas. Use the
+arrow keys to guide the snake, collect food, and grow without hitting the
+walls or your own tail.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Keyboard controls for moving the snake, pausing, and restarting
+- Score tracking and win/game-over states
+- Canvas rendering with D3 scales
+- Game state shared through React Context
+- Automatic game saving in your browser's `localStorage`
 
-## React Compiler
+## Play
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+| Key | Action |
+| --- | --- |
+| Arrow keys | Change the snake's direction |
+| Escape | Pause or resume |
+| Enter | Restart the game |
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+You can also use the **Restart** button when the game is paused, won, or over.
 
-## Expanding the Oxlint configuration
+The game runs at a fixed board size and movement speed. A saved game is restored
+when you reopen or refresh the app in the same browser.
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## Run locally
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+### Requirements
+
+- Node.js
+- npm
+
+### Setup
+
+```bash
+git clone https://github.com/EVGlukhov/react-snake-game-d3js.git
+cd react-snake-game-d3js
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Open the local URL printed by Vite in your browser.
+
+## Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the local development server |
+| `npm run build` | Type-check and create a production build in `dist/` |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | Run Oxlint |
+| `npm run deploy` | Build and publish `dist/` with `gh-pages` |
+
+## Built with
+
+- [React](https://react.dev/) and [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vite.dev/)
+- [D3](https://d3js.org/) for canvas grid scales
+- [Tailwind CSS](https://tailwindcss.com/)
+
+## Project structure
+
+```text
+src/
+├── App.tsx
+└── snake/
+    ├── GameContext.tsx
+    ├── Snake.tsx
+    ├── components/
+    ├── hooks/
+    ├── constants.ts
+    └── settings.ts
+```
+
+Game board dimensions, cell sizing, and movement timing are configured in
+`src/snake/settings.ts`.
