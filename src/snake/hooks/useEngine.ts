@@ -73,14 +73,6 @@ function createFood(snake: Position[]): Position | null {
     return available;
   }, []);
 
-  for (let y = 0; y < SNAKE_SETTINGS.rows; y++) {
-    for (let x = 0; x < SNAKE_SETTINGS.columns; x++) {
-      if (!snake.some((part: Position) => part.x === x && part.y === y)) {
-        emptyCells.push({ x, y });
-      }
-    }
-  }
-
   if (emptyCells.length === 0) return null;
 
   return emptyCells[Math.floor(Math.random() * emptyCells.length)];
