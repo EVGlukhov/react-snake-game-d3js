@@ -1,2 +1,2 @@
 export { Snake } from "./Snake";
-export { GameProvider } from "./GameContext";
+export { GameProvider } from "./contexts";

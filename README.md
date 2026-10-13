@@ -65,10 +65,10 @@ Open the local URL printed by Vite in your browser.
 ```text
 src/
 ├── App.tsx
-└── snake/
-    ├── GameContext.tsx
+└── snake/    
     ├── Snake.tsx
     ├── components/
+    |-- context/
     ├── hooks/
     ├── constants.ts
     └── settings.ts

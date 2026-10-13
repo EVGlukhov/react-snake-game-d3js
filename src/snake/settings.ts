@@ -5,6 +5,7 @@ export type SnakeSettings = {
   cellMargin: number;
   gamePadding: number;
   cooldown: number;
+  storageKey: string;
 };
 
 export const SNAKE_SETTINGS = {
@@ -14,4 +15,5 @@ export const SNAKE_SETTINGS = {
   cellMargin: 2,
   gamePadding: 10,
   cooldown: 400,
+  storageKey: "snake-game",
 } as const satisfies SnakeSettings;

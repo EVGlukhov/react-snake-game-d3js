@@ -1,8 +1,7 @@
 import { createContext, useContext, useEffect, type ReactNode } from "react";
-import { Direction, Status, type Position } from "./constants";
-import { createGame, useEngine, type GameState } from "./hooks/useEngine";
-
-const STORAGE_KEY = "snake-game";
+import { Direction, Status, type Position } from "../constants";
+import { createGame, useEngine, type GameState } from "../hooks/useEngine";
+import { SNAKE_SETTINGS } from "../settings";
 
 function isPosition(value: unknown): value is Position {
   if (typeof value !== "object" || value === null) return false;
@@ -37,7 +36,7 @@ function isGameState(value: unknown): value is GameState {
 
 function loadGame(): GameState {
   try {
-    const saved = localStorage.getItem(STORAGE_KEY);
+    const saved = localStorage.getItem(SNAKE_SETTINGS.storageKey);
     if (!saved) return createGame();
 
     const parsed: unknown = JSON.parse(saved);
@@ -58,7 +57,10 @@ export function GameProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(gameState.game));
+      localStorage.setItem(
+        SNAKE_SETTINGS.storageKey,
+        JSON.stringify(gameState.game),
+      );
     } catch (error) {
       console.error("Could not save the Snake game.", error);
     }

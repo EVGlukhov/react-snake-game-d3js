@@ -1,5 +1,5 @@
 import { Status } from "../constants";
-import { useGame } from "../GameContext";
+import { useGame } from "../contexts";
 
 export function GameHeader() {
   const { game, restartGame } = useGame();
@@ -17,7 +17,9 @@ export function GameHeader() {
       <button
         type="button"
         onClick={restartGame}
-        disabled={game.status === Status.Playing}
+        disabled={
+          game.status === Status.Playing || game.status === Status.Paused
+        }
         className="rounded-md bg-amber-500 px-4 py-2 font-medium text-gray-700 shadow-xl hover:bg-amber-400 disabled:bg-slate-500 disabled:text-mist-300"
       >
         Restart

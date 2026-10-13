@@ -1,4 +1,4 @@
-import { useGame } from "@/snake/GameContext";
+import { useGame } from "@/snake/contexts/GameContext";
 import { GameDialog } from "../GameDialog";
 
 export function GameOverDialog() {

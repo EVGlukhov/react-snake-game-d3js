@@ -1,9 +1,12 @@
-import { Playground, GameHeader } from "./components";
-import { GameOverDialog } from "./components/dialogs/GameOverDialog";
-import { PauseDialog } from "./components/dialogs/PauseDialog";
-import { WinDialog } from "./components/dialogs/WinDialog";
+import {
+  Playground,
+  GameHeader,
+  GameOverDialog,
+  PauseDialog,
+  WinDialog,
+} from "./components";
 import { Status } from "./constants";
-import { useGame } from "./GameContext";
+import { useGame } from "./contexts";
 
 export function Snake() {
   const { game } = useGame();

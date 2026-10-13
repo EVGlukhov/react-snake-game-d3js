@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useKeydown, useRenderer } from "../hooks";
 import { SNAKE_SETTINGS } from "../settings";
 import { Status, Direction } from "../constants";
-import { useGame } from "../GameContext";
+import { useGame } from "../contexts";
 
 export function Playground() {
   const { ref, drawFrame } = useRenderer();
